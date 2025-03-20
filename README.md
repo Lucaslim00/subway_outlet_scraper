@@ -24,7 +24,7 @@ DATABASE_URL=postgresql://myuser:mypassword@localhost:5432/mydatabase`
 ```
 GOOGLE_MAPS_API=*********
 ```
-3. Run the following code,
+3. **Run**
 ```
 python3 webscraper.py
 ```
