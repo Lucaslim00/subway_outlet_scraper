@@ -20,40 +20,14 @@ os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
 # Set page config and custom CSS
 st.set_page_config(layout="wide")
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background-color: #FAF7F2;
-    }
-    /* Style for the left column (chat) */
-    div[data-testid="column"]:first-of-type {
-        background-color: #E8F4F8;
-        padding: 20px;
-        border-radius: 10px;
-        margin: 10px;
-    }
-    /* Style for the right column (map) */
-    div[data-testid="column"]:last-of-type {
-        background-color: #F8E8E8;
-        padding: 20px;
-        border-radius: 10px;
-        margin: 10px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 url = "http://127.0.0.1:8000/outlets/"
 response = requests.get(url)
 
-title, subwaylogo,empty = st.columns([0.25,0.25,0.5])
+st.image("subway_icon/subway_icon.png", width=140)
+title, empty = st.columns(2)
 with title:
     st.title('Subway Outlets in KL') 
-
-with subwaylogo:
-    st.image("subway_icon/subway_icon.png", width=140)
 
 chat, map = st.columns(2)
 
@@ -64,7 +38,7 @@ if "chain" not in st.session_state:
     st.session_state.chain = None
 
 with chat:
-    st.title('Search')
+    st.title('AI Chatbot')
     
     if response.status_code == 200:
         outlets = response.json()
@@ -160,6 +134,7 @@ with chat:
 
 with map:
     if response.status_code == 200:
+        st.title("Subway Outlets Information")
         outlets = response.json()
         # Create a list of outlet names for the dropdown
         outlet_names = [outlet['name'] for outlet in outlets]
@@ -170,7 +145,6 @@ with map:
         selected_outlet = next(outlet for outlet in outlets if outlet['name'] == selected_outlet_name)
         
         # Display outlet details
-        st.title(selected_outlet['name'])
         st.write(f"**Address:** {selected_outlet['address']}")
         st.write(f"**Phone:** {selected_outlet['opening_hours']}")
         
