@@ -111,7 +111,7 @@ with chat:
             llm = ChatOpenAI(
                 temperature=0,
                 model_name="gpt-3.5-turbo",
-                max_tokens=500  # Allow for more detailed responses
+                max_tokens=500  #
             )
             
             # Enhanced memory configuration
@@ -127,17 +127,17 @@ with chat:
                 llm=llm,
                 retriever=vectorstore.as_retriever(
                     search_kwargs={
-                        "k": 3,  # Retrieve more relevant documents
-                        "fetch_k": 5,  # Fetch more candidates for better selection
-                        "lambda_mult": 0.5  # Balance between relevance and diversity
+                        "k": 3,  
+                        "fetch_k": 5,  
+                        "lambda_mult": 0.5  #
                     }
                 ),
                 memory=memory,
                 return_source_documents=True,
-                verbose=True  # Enable verbose mode for debugging
+                verbose=True 
             )
         
-        # Chat input at the top
+        # Chat input 
         if prompt := st.chat_input("Ask about Subway outlets...", key="chat_input"):
             # Add user message to chat history
             st.session_state.messages.append({"role": "user", "content": prompt})
@@ -149,7 +149,6 @@ with chat:
             except Exception as e:
                 st.error(f"Error getting response: {str(e)}")
         
-        # Add a divider between input and chat history
         st.markdown("---")
         
         # Display chat messages in reverse order (newest first)
@@ -168,7 +167,6 @@ with map:
         # Add outlet selection dropdown
         selected_outlet_name = st.selectbox("Select an Outlet", outlet_names)
         
-        # Find the selected outlet details
         selected_outlet = next(outlet for outlet in outlets if outlet['name'] == selected_outlet_name)
         
         # Display outlet details

@@ -17,6 +17,7 @@ app = FastAPI(
 def read_root():
     return {"message": "Welcome to the Scraper API"}
 
+# Add get request to get all outlets information
 @app.get("/outlets/", response_model=List[OutletResponse])
 def get_outlets(db: Session = Depends(get_db)):
     outlets = db.query(Outlet).all()

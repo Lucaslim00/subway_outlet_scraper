@@ -4,23 +4,23 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 import time
-from geopy.geocoders import Nominatim
-from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 import pandas as pd
 from database import engine
 import requests
 import os
 import re
 
+# Load google maps api from .env file
 GOOGLE_MAPS_API = os.getenv("GOOGLE_MAPS_API")
 
 def scrape_outlets(area):
-    driver = webdriver.Chrome()  # Make sure you have ChromeDriver installed
+    # Initialize webdriver
+    driver = webdriver.Chrome()  
     driver.get("https://www.subway.com.my/find-a-subway")
     time.sleep(5)
 
     try:
-        # Search outlet
+        # Search for outlets in Kuala Lumpur area
         search_input = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH,"//input[@placeholder='Find a Subway']"))
         )
@@ -31,7 +31,7 @@ def scrape_outlets(area):
         
         time.sleep(2)
 
-        # Create lists for outlet name, address and phone number
+        # Create empty lists to store scraped data
         name = []
         address=[]
         opening_hours = []
@@ -47,6 +47,7 @@ def scrape_outlets(area):
         for outlet in outlet_information:
             outinfo = outlet.text.split('\n')
             if len(outinfo) > 1:
+                # Exception (1 outlet has no address)
                 if 'Monday' in outinfo[1]:
                     name.append(outinfo[0])
                     address.append('Not Available')
@@ -73,6 +74,7 @@ def scrape_outlets(area):
 
 def clean_address(address):
 
+    # Regex patterns to remove unnecessary address components
     regex_patterns = [
     r"Lot\s+[A-Za-z0-9&\-(). ]+\s*,?\s*" ,       
     r"\b(G|L|B|F|S|UC|UG|LG)?-\d+[\w\s&-]*,",  
@@ -82,6 +84,7 @@ def clean_address(address):
     for pattern in regex_patterns:
         address = re.sub(pattern, "", address, flags=re.IGNORECASE).strip()
 
+    # Exception (The addresses of these outlets need manual cleaning)
     if address == 'Wangsa Ave, Bandar Wangsa Maju, #9 Jalan Perdana 1,  Wangsa Walk Mall, Kuala Lumpur, 53300':
         address = 'Wangsa Walk Mall'
     elif address == 'Petronas Green Plus Station, Plus Hwy & Sungai Besi Hwy, , QSR 3, Mukim Kajang, Hulu Langat, 43300':
@@ -99,13 +102,14 @@ def geolocation(addresses):
     latitude = []
     longitude = []
 
-    # Removing postcode, city and country
     for address in addresses:
 
+        #Exception (1 outlet has no address)
         if address == 'Not Available':
             latitude.append(0)
             longitude.append(0)
         else:
+            # Query google maps api to get latitude and longitude
             cleaned_address = clean_address(address)
             url = f"https://maps.googleapis.com/maps/api/geocode/json?address={cleaned_address}&key={GOOGLE_MAPS_API}"
             
@@ -127,7 +131,10 @@ names, addresses, opening_hours, google_maps_link, waze_link = scrape_outlets('k
 
 latitudes, longitudes = geolocation(addresses)
 
+# Construct dataframe for scraped data
 outlet_df = pd.DataFrame({'id': range(1, len(names) + 1), 'name': names, 'address': addresses, 'opening_hours': opening_hours, 'latitude': latitudes, 'longitude': longitudes, 'waze_link': waze_link, 'google_maps_link': google_maps_link})
+
+# Add data into database
 outlet_df.to_sql("subway_outlets", engine, if_exists="replace", index=False)
 
 

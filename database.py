@@ -13,12 +13,15 @@ load_dotenv()
 
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 
+# Create an engine to connect to the database
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
+
+# Configure a session factory with autocommit and autoflush disabled
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
-# Dependency
+# Dependency to get a database session
 def get_db():
     db = SessionLocal()
     try:

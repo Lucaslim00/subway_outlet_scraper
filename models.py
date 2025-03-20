@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float
 from database import engine, Base
 
-# Define a "Outlet" model (table)
+# Define "Outlet" model 
 class Outlet(Base):
     __tablename__ = "subway_outlets" 
 
