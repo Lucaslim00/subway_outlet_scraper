@@ -1,5 +1,5 @@
 # Subway_Outlet_Scraper
-This repository contains code for a webscraper for [Subway Malaysia](https://www.subway.com.my/find-a-subway) which scrapes all the Kuala Lumpur outlets in Malaysia. The code includes Selenium webscraper, PostgreSQL as the database, FastAPI, Streamlit web application and LangChain RAG framework
+This repository contains code for a webscraper for [Subway Malaysia](https://www.subway.com.my/find-a-subway) which scrapes all the Kuala Lumpur outlets in Malaysia. The code includes Selenium webscraper, PostgreSQL as the database, FastAPI, Streamlit web application and chatbot LangChain RAG framework
 
 ## Installation
 **Installation via** **`requirements.txt`**:
@@ -30,9 +30,18 @@ python3 webscraper.py
 ```
 
 ## FastAPI
+1. **RUN**
+```
+uvicorn api:app --reload
+```
+2. Check if the api is working by accessing [http://127.0.0.1:8000/outlets/]('http://127.0.0.1:8000/outlets/')
 
 ## Web Application
-1. **Run**
+1. The chatbot using LangChain RAG Framework requires OpenAi api key, add the OpenAI api key into .env file
+```
+OPENAI_API_KEY=*********
+```
+2. **Run**
 ```
 streamlit run webapp.py
 ```
