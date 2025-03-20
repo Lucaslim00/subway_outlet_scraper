@@ -13,6 +13,8 @@ $ pip3 install -r requirements.txt
 ## Database
 1. Set up your postgresql database locally and ensure it is running on port 5432 
 2. Add your database credentials with the following format into .env file, replace 'myuser' and 'mydatabase' with your username and database name
-`DATABASE_URL=postgresql://myuser@localhost:5432/mydatabase`
+```
+DATABASE_URL=postgresql://myuser@localhost:5432/mydatabase`
+```
 
 ## Selenium
