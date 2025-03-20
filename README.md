@@ -9,3 +9,7 @@ $ cd subway_outlet_scraper
 $ python3 -m venv env
 $ source env/bin/activate
 $ pip3 install -r requirements.txt
+
+## Database
+
+## Selenium
