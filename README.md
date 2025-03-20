@@ -1,4 +1,4 @@
-# Subway_Outlet_Scraper
+# Subway Outlet Scraper
 This repository contains code for a webscraper for [Subway Malaysia](https://www.subway.com.my/find-a-subway) which scrapes all the Kuala Lumpur outlets in Malaysia. The code includes Selenium webscraper, PostgreSQL as the database, FastAPI, Streamlit web application and chatbot LangChain RAG framework
 
 ## Installation
