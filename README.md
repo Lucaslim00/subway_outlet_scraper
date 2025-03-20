@@ -12,9 +12,21 @@ $ pip3 install -r requirements.txt
 ```
 ## Database
 1. Set up your postgresql database locally and ensure it is running on port 5432 
-2. Add your database credentials with the following format into .env file, replace 'myuser' and 'mydatabase' with your username and database name
+2. Add your database credentials with the following format into .env file, replace 'myuser', 'mypassword' and 'mydatabase' with your username, password and database name
 ```
-DATABASE_URL=postgresql://myuser@localhost:5432/mydatabase`
+DATABASE_URL=postgresql://myuser:mypassword@localhost:5432/mydatabase`
 ```
 
 ## Selenium
+The web scraper utilises Selenium, so installing Selenium and webdriver is required.
+1. Run
+```
+pip3 install selenium
+```
+2. Download chromedriver from [ChromeDriver](https://googlechromelabs.github.io/chrome-for-testing/)
+
+## FastAPI
+
+## Web Scraper
+
+## Web Application
