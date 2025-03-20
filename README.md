@@ -18,8 +18,8 @@ DATABASE_URL=postgresql://myuser:mypassword@localhost:5432/mydatabase`
 ```
 
 ## Web scraper
-1. The web scraper utilises Selenium, so installing Selenium and webdriver is required, ChromeDriver can be downloaded from [ChromeDriver](https://googlechromelabs.github.io/chrome-for-testing/)
-2. In order to extract the coordinates of the address scraped, geocoding is implemented. Google Maps geocoding is utilized, can refer to this documentation [Google Maps Geocoding](https://developers.google.com/maps/documentation/geocoding)<br>
+1. The web scraper utilises Selenium, so installing Selenium and webdriver is required. ChromeDriver can be downloaded from [ChromeDriver](https://googlechromelabs.github.io/chrome-for-testing/)
+2. In order to extract the coordinates of the address scraped, geocoding is implemented. Google Maps geocoding is utilized, can refer to this documentation [Google Maps Geocoding](https://developers.google.com/maps/documentation/geocoding).<br>
 **Add Google Maps geocoding api into .env file**
 ```
 GOOGLE_MAPS_API=*********
@@ -29,7 +29,7 @@ GOOGLE_MAPS_API=*********
 python3 webscraper.py
 ```
 
-## Web Scraper
+## FastAPI
 
 ## Web Application
 1. **Run**
