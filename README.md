@@ -4,8 +4,8 @@ This repository contains code for a webscraper for [Subway Malaysia](https://www
 ## Installation
 **Installation via** **`requirements.txt**:
 ```
-git clone https://github.com/Lucaslim00/subway_outlet_scraper
-cd subway_outlet_scraper
-python3 -m venv env
-source env/bin/activate
-pip3 install -r requirements.txt
+$ git clone https://github.com/Lucaslim00/subway_outlet_scraper
+$ cd subway_outlet_scraper
+$ python3 -m venv env
+$ source env/bin/activate
+$ pip3 install -r requirements.txt
