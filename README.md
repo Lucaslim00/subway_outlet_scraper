@@ -17,16 +17,23 @@ $ pip3 install -r requirements.txt
 DATABASE_URL=postgresql://myuser:mypassword@localhost:5432/mydatabase`
 ```
 
-## Selenium
-The web scraper utilises Selenium, so installing Selenium and webdriver is required.
-1. Run
+## Web scraper
+1. The web scraper utilises Selenium, so installing Selenium and webdriver is required, ChromeDriver can be downloaded from [ChromeDriver](https://googlechromelabs.github.io/chrome-for-testing/)
+2. In order to extract the coordinates of the address scraped, geocoding is implemented. Google Maps geocoding is utilized, can refer to this documentation [Google Maps Geocoding](https://developers.google.com/maps/documentation/geocoding)
+Add Google Maps geocoding api into .env file
 ```
-pip3 install selenium
+GOOGLE_MAPS_API=*********
 ```
-2. Download chromedriver from [ChromeDriver](https://googlechromelabs.github.io/chrome-for-testing/)
-
-## FastAPI
+3. Run the following code,
+```
+python3 webscraper.py
+```
 
 ## Web Scraper
 
 ## Web Application
+1. **Run**
+```
+streamlit run webapp.py
+```
+The web application should be up and running.
