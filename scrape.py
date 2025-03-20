@@ -50,7 +50,8 @@ def scrape_outlets(area):
                 # Exception (1 outlet has no address)
                 if 'Monday' in outinfo[1]:
                     name.append(outinfo[0])
-                    address.append('Not Available')
+                    print(outinfo[0])
+                    address.append('9-0-9, Jalan 3/109f, Taman Danau Desa, 58100 Kuala Lumpur, Federal Territory of Kuala Lumpur')
                     opening_hours.append(outinfo[1])
                 else:
                     name.append(outinfo[0])
@@ -103,27 +104,22 @@ def geolocation(addresses):
     longitude = []
 
     for address in addresses:
+        
+        # Query google maps api to get latitude and longitude
+        cleaned_address = clean_address(address)
+        url = f"https://maps.googleapis.com/maps/api/geocode/json?address={cleaned_address}&key={GOOGLE_MAPS_API}"
+        
+        response = requests.get(url).json()
 
-        #Exception (1 outlet has no address)
-        if address == 'Not Available':
-            latitude.append(0)
-            longitude.append(0)
+        if response["status"] == "OK":
+            location = response["results"][0]["geometry"]["location"]
+            latitude.append(location["lat"])
+            longitude.append(location["lng"])
         else:
-            # Query google maps api to get latitude and longitude
-            cleaned_address = clean_address(address)
-            url = f"https://maps.googleapis.com/maps/api/geocode/json?address={cleaned_address}&key={GOOGLE_MAPS_API}"
-            
-            response = requests.get(url).json()
-
-            if response["status"] == "OK":
-                location = response["results"][0]["geometry"]["location"]
-                latitude.append(location["lat"])
-                longitude.append(location["lng"])
-            else:
-                print(cleaned_address)
-                print("Geocoding failed:", response["status"])
-                print(response)
-            time.sleep(0.5)
+            print(cleaned_address)
+            print("Geocoding failed:", response["status"])
+            print(response)
+        time.sleep(0.5)
 
     return latitude, longitude
 
